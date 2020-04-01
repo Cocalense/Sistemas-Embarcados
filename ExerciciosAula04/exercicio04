@@ -1,5 +1,7 @@
 /*
 Lista de Exercícios - Prof. Vagner Rodrigues
+                    - Aluno. Anderson Colossi
+                    - SATC 2020
 
 4) Desenvolver um programa que leia o valor analógico da tensão de saída de três 
 potenciômetros e controle as cores de um LED RGB. Além disso, indique na serial os valores
