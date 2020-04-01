@@ -1,0 +1,33 @@
+/*
+Lista de Exercícios - Prof. Vagner Rodrigues
+                    - Aluno. Anderson Colossi
+                    - SATC 2020
+
+1) Desenvolva um programa que faça a leitura do sensor PIR e dispare o buzzer por 2 segundos 
+caso o sensor PIR detecte movimento em seu campo de visão.
+
+https://www.tinkercad.com/things/b35vyWnVhmQ
+
+*/
+
+#include <Arduino.h>
+#define PIR 1
+#define BUZZER 6
+
+void setup() 
+{
+	//Configuração do PIR como entrada e do Buzzer como saída.
+  	pinMode(PIR, INPUT);
+  	pinMode(BUZZER, OUTPUT);
+}
+
+void loop() 
+{
+  	if (digitalRead(PIR)) 
+  		//Função tone(): liga o BUZZER na frequência de 1kHz por 2s.
+  		tone(BUZZER, 1000, 2000);
+  	else 
+  		//Função noTone(): Desliga o BUZZER.
+  		noTone(BUZZER);
+  	delay(10); //Para não travar o simulador.
+}
