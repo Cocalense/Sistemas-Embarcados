@@ -1,0 +1,77 @@
+/*
+Lista de Exercícios - Prof. Vagner Rodrigues
+
+4) Desenvolver um programa que leia o valor analógico da tensão de saída de três 
+potenciômetros e controle as cores de um LED RGB. Além disso, indique na serial os valores
+proporcionais de 0 a 100% de Vermelho, Verde e Azul.
+
+https://www.tinkercad.com/things/caH07khnl3r
+*/
+#include <Arduino.h>
+
+const int8_t potentiometerPins[] = { A0, A1, A2 };
+
+// Values that are read from the pontetiometer pins array
+// after being mapped from 10 bits to 8 bits
+uint8_t potentiometerValues[] = { 0, 0, 0 };
+
+// LED pins
+const int8_t ledRPin = 9;
+const int8_t ledGPin = 11;
+const int8_t ledBPin = 10;
+
+// Value for each color (0 - 255)
+uint8_t blueValue = 0;
+uint8_t greenValue = 0;
+uint8_t redValue = 0;
+
+uint16_t startMillis;  //some global variables available anywhere in the program
+uint16_t currentMillis;
+const uint16_t period = 500;  //the value is a number of milliseconds
+
+void setup() 
+{
+	// Starts the serial
+	Serial.begin(9600);	  
+	  
+	// Sets all the LED pins to OUTPUT
+	pinMode(ledRPin, OUTPUT);
+	pinMode(ledGPin, OUTPUT);
+ 	pinMode(ledBPin, OUTPUT);
+}
+
+void loop() 
+{
+  	// Reads the values from the potentiometers
+  	// maps them from 10 bits to 8 bits
+  	// and assign them to the respective index
+  	// in the potentiometerValues array
+  	for (uint8_t i = 0; i < 3; i++) 
+  	{
+  		potentiometerValues[i] = map(analogRead(potentiometerPins[i]), 0, 1023, 0, 255);
+  	}
+  
+	// Assigns each of the potentiometer values
+	// to its color, for readability
+	blueValue = potentiometerValues[0];
+	greenValue = potentiometerValues[1];
+	redValue = potentiometerValues[2];
+
+	// Sends the 0 - 255 value to each LED Pin
+	analogWrite(ledRPin, redValue);
+	analogWrite(ledGPin, greenValue);
+	analogWrite(ledBPin, blueValue);
+	
+	currentMillis = millis();  //get the current "time" (actually the number of milliseconds since the program started)
+	if (currentMillis - startMillis >= period)  //test whether the period has elapsed
+	{
+		// Prints the percentage of each color
+		// maps the value from 0 - 255 to 0 - 100
+		// for percentage values	
+		Serial.print(String("Red: ") + map(redValue, 0, 255, 0, 100) + String(" "));
+		Serial.print(String("Green: ") + map(greenValue, 0, 255, 0, 100) + String(" "));
+		Serial.println(String("Blue: ") + map(blueValue, 0, 255, 0, 100) + String(" "));
+		startMillis = currentMillis;  //IMPORTANT to save the start time of the current LED state.
+	} 
+	delay(10); //Para não travar o simulador. 
+}
