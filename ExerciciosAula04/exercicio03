@@ -1,0 +1,36 @@
+/*
+Lista de Exercícios - Prof. Vagner Rodrigues
+                    - Aluno. Anderson Colossi
+                    - SATC 2020
+
+3) Desenvolver um programa que leia o valor analógico da tensão de saída do potenciômetro 
+e controle proporcionalmente a velocidade de um motor de corrente contínua. Além disso, indique 
+na serial o valor do retorno da função analogRead().
+
+https://www.tinkercad.com/things/6oX7o3xKikd
+*/
+#include <Arduino.h>
+#define AN A0
+#define MOTOR 3
+
+int16_t analogica = 0;
+
+void setup() 
+{
+	//Inicializa a serial com 9600 de baudrate.
+	Serial.begin(9600);
+	pinMode(MOTOR, OUTPUT);
+}
+
+void loop() 
+{
+	//Realiza a leitura analógica do pino do potenciômetro e imprime na serial. 
+	analogica = analogRead(AN); 
+	Serial.print("Valor analogico = ");	Serial.println(analogica);
+	//Controla o motor com o valor convertido da leitura analógica.
+	//Obs: O deslocamento realiza a divisão por 4.
+	analogWrite(MOTOR, analogica>>2); 
+
+	delay(500); //O ciclo se repete a cada 0.5s.
+}
+
