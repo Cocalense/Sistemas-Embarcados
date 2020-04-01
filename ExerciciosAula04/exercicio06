@@ -10,6 +10,7 @@ Além disso, indique na serial, com precisão de duas casas decimais, o valor da
 potenciômetro.
 
 https://www.tinkercad.com/things/kFKbkMERVot
+
 */
 
 uint8_t displayNumbers[6][7] = {
