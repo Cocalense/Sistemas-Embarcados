@@ -1,12 +1,13 @@
 /*
 Lista de Exercícios - Prof. Vagner Rodrigues
                     - Aluno. Anderson Colossi
-                    -SATC 2020
+                    - SATC 2020
 
 1) Desenvolva um programa que faça a leitura do sensor PIR e dispare o buzzer por 2 segundos 
 caso o sensor PIR detecte movimento em seu campo de visão.
 
 https://www.tinkercad.com/things/b35vyWnVhmQ
+
 */
 
 #include <Arduino.h>
