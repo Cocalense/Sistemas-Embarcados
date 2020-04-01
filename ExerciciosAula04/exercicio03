@@ -8,7 +8,9 @@ e controle proporcionalmente a velocidade de um motor de corrente contínua. Al�
 na serial o valor do retorno da função analogRead().
 
 https://www.tinkercad.com/things/6oX7o3xKikd
+
 */
+
 #include <Arduino.h>
 #define AN A0
 #define MOTOR 3
