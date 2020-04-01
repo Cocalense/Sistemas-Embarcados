@@ -1,0 +1,83 @@
+/*
+Lista de Exercícios - Prof. Vagner Rodrigues
+                    - Aluno. Anderson Colossi
+                    - SATC 2020
+
+2) Desenvolver um programa que faÇa a leitura do sensor de temperatura LM36 e indique 
+o valor da temperatura no monitor serial. 
+
+https://www.tinkercad.com/things/4wn5z90HoE3
+
+*/
+
+#include <Arduino.h>
+#define TEMP A0
+
+float temperatura = 0;
+
+void setup() 
+{
+	//Inicializa a serial com 9600 de baudrate.
+	Serial.begin(9600);
+}
+
+void loop() 
+{
+	//Realiza a leitura do sensor LM36, converte o valor para DC e imprime na serial.	
+	temperatura = (0.488*analogRead(TEMP)) - 49.6; 
+	Serial.print("Temperatura = ");	Serial.println((float)temperatura);
+
+	delay(500); //O ciclo se repete a cada 0.5s.
+
+	int valor_ad = leituraAnalogica(0);
+  Serial.println(valor_ad);
+  
+}
+
+/*
+Codigo no arduino com C
+
+#define bit_is_set(sfr, bit) 	(_SFR_BYTE(sfr) & _BV(bit))
+#define bit_is_clear(sfr, bit)  (!(_SFR_BYTE(sfr) & _BV(bit)))
+
+#include "Arduino.h"
+void adc_init(void)
+{
+	//Configurando o preescaler para 128, em 16MHz, resulta em uma frequência de 125kHz.
+	ADCSRA |= (1<<ADPS2) | (1<<ADPS1) | (1<ADPS0);
+	//Desliga o modo free-running
+	ADCSRA &= ~(1<<ADATE);
+	//Habilita o ADC
+	ADCSRA |= ADEN;
+    //Tensão de referência para AVCC
+	ADMUX |= (1<<REFS0);
+    //Desligando o ajuste de esquerda para ter 10 bits de resolução
+	ADMUX &= ~(1<<ADLAR);
+}
+
+int leituraAnalogica(int porta)
+{
+	int bToChannel = porta & 0x07;
+	//Configurando o canal da porta a ser amostrado
+	ADMUX |= bToChannel;	
+	//Ligando a amostragem e iniciando a medição
+	ADCSRA |= (1<<ADSC);
+	//Aguarda bit ADIF ser resetado
+	while(bit_is_set(ADCSRA, ADIF));
+	//Combinando e retornando bytes
+	return((ADCH<<8)|ADCL);
+}
+
+void setup()
+{
+  Serial.begin(9600);
+  adc_init();
+}
+void loop()
+{
+  int valor_ad = leituraAnalogica(0);
+  Serial.println(valor_ad);
+  delay(100);
+}
+
+*/
