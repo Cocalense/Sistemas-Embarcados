@@ -31,3 +31,30 @@ void loop()
   		noTone(BUZZER);
   	delay(10); //Para não travar o simulador.
 }
+
+/* ********************************************************************** */
+/*
+Código no arduino uno:
+
+int pinoPIR = 1;
+int buzzer = 5;
+
+void setup() 
+{
+  //Configurando do PIR como entrada e buzzer como saída
+  pinMode(pinoPIR, INPUT);
+  pinMode(buzzer, OUTPUT);	
+}
+
+void loop() 
+{
+  	if (digitalRead(pinoPIR))
+      //Função tone(): liga o buzzer na frequencia de 1KHz por 2s.
+      tone(buzzer, 1000, 2000);
+  	else
+      //Função noTone(): Desliga o buzzer
+      noTone(buzzer);
+  	delay(10);  // <-- para não travar o thinkercad
+}
+
+*/
