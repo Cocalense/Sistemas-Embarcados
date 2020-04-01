@@ -7,7 +7,9 @@ Lista de Exercícios - Prof. Vagner Rodrigues
 acenda os LEDS proporcionalmente ao valor do potenciômetro. Este protótipo simula um barghaph.
 
 https://www.tinkercad.com/things/5QgTvNFZZHy
+
 */
+
 #define POT A0
 
 void setup()
