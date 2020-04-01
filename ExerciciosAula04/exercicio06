@@ -1,0 +1,57 @@
+/*
+Lista de Exercícios - Prof. Vagner Rodrigues
+                    - Aluno. Anderson Colossi
+                    - SATC 2020
+
+5) 6. Desenvolver um programa que leia o valor analógico da tensão de saída do potenciômetro e 
+indique a tensão no display de 7 segmentos. O programa deve mostrar no display apenas o valor 
+inteiro da tensão. (Ex: Se valor lido no multímetro for 3,95V indicar apenas o 3 no display). 
+Além disso, indique na serial, com precisão de duas casas decimais, o valor da tensão lida pelo
+potenciômetro.
+
+https://www.tinkercad.com/things/kFKbkMERVot
+*/
+
+uint8_t displayNumbers[6][7] = {
+//A,B,C,D,E,F,G
+{1,1,1,1,1,1,0}, //Nº 0
+{0,1,1,0,0,0,0}, //Nº 1
+{1,1,0,1,1,0,1}, //Nº 2
+{1,1,1,1,0,0,1}, //Nº 3
+{0,1,1,0,0,1,1}, //Nº 4
+{1,0,1,1,0,1,1}, //Nº 5
+};
+
+uint8_t pinos[7] = {9, 10, 13, 12, 11, 8, 7};
+
+//Função que controla o display.
+void escreveDisplay(int numero)
+{
+  for (uint8_t i = 0; i < 7; i++)
+  {
+     digitalWrite(pinos[i],displayNumbers[numero][i]);  
+  }
+}  
+
+void setup()
+{
+  Serial.begin(9600);
+  //Configura os pinos do display como saída.
+ for (uint8_t i = 0; i < 7; i++)
+  {
+    pinMode(pinos[i], OUTPUT);
+  }
+}
+
+
+void loop() 
+{  
+  uint16_t leituraAD = (analogRead(A0));
+  float volts = float(leituraAD)*(5.0/1023);  
+  //Imprime na serial a tensão com a parte fracionaria.
+  Serial.print("Voltage: "); Serial.print(volts); Serial.println("V");
+  //Imprime no display o vlaor inteiro.
+  escreveDisplay(uint8_t(volts));
+  delay(500); //O ciclo se repete a cada 0.5s.
+}
+
